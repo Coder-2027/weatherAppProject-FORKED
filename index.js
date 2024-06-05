@@ -9,9 +9,9 @@ const userInfoContainer = document.querySelector(".user-info-container");
 
 //initially vairables need????
 
-let oldTab = userTab;
+let oldTab = userTab;                //default setting
 const API_KEY = "d1845658f92b31c64bd94f06f7188c9c";
-oldTab.classList.add("current-tab");
+oldTab.classList.add("current-tab");            //properties like background color is being added
 getfromSessionStorage();
 
 function switchTab(newTab) {
@@ -49,13 +49,13 @@ searchTab.addEventListener("click", () => {
 
 //check if cordinates are already present in session storage
 function getfromSessionStorage() {
-    const localCoordinates = sessionStorage.getItem("user-coordinates");
+    const localCoordinates = sessionStorage.getItem("user-coordinates");            //*****
     if(!localCoordinates) {
         //agar local coordinates nahi mile
         grantAccessContainer.classList.add("active");
     }
     else {
-        const coordinates = JSON.parse(localCoordinates);
+        const coordinates = JSON.parse(localCoordinates);        //converts json string into json object
         fetchUserWeatherInfo(coordinates);
     }
 
@@ -102,9 +102,14 @@ function renderWeatherInfo(weatherInfo) {
     console.log(weatherInfo);
 
     //fetch values from weatherINfo object and put it UI elements
-    cityName.innerText = weatherInfo?.name;
-    countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
-    desc.innerText = weatherInfo?.weather?.[0]?.description;
+                                                        //learning optional chaining operator
+
+    // using this we can safely access nested properties, if suppose that property doesnot exist then it returns undefined value
+    // ? is for , since we do not know whether that property exist or not here ? helps in returning undefined value
+    // . is used for entering inside that key that is its value
+    cityName.innerText = weatherInfo?.name;                                        //we are determining where to enter by parsing json in some website by just pasting json in the website
+    countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;            //Putting country id in the link will give the flag
+    desc.innerText = weatherInfo?.weather?.[0]?.description;                            //here inside weather we have an array
     weatherIcon.src = `http://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
     temp.innerText = `${weatherInfo?.main?.temp} °C`;
     windspeed.innerText = `${weatherInfo?.wind?.speed} m/s`;
@@ -115,8 +120,8 @@ function renderWeatherInfo(weatherInfo) {
 }
 
 function getLocation() {
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+    if(navigator.geolocation) {            //checking if this functionality is available on browser or not
+        navigator.geolocation.getCurrentPosition(showPosition);       // where showposdition is a callback function which is gonna to receive live coordinates of user
     }
     else {
         //HW - show an alert for no gelolocation support available
@@ -126,11 +131,11 @@ function getLocation() {
 function showPosition(position) {
 
     const userCoordinates = {
-        lat: position.coords.latitude,
+        lat: position.coords.latitude,                    //W3 school
         lon: position.coords.longitude,
     }
 
-    sessionStorage.setItem("user-coordinates", JSON.stringify(userCoordinates));
+    sessionStorage.setItem("user-coordinates", JSON.stringify(userCoordinates));                    //saving it by the name user-coordinates so that it can be accessed in line 52...
     fetchUserWeatherInfo(userCoordinates);
 
 }
@@ -141,7 +146,7 @@ grantAccessButton.addEventListener("click", getLocation);
 const searchInput = document.querySelector("[data-searchInput]");
 
 searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+    e.preventDefault();                    //to avoid page getting reloaded again and again -  it is the default behavior of a button present in form
     let cityName = searchInput.value;
 
     if(cityName === "")
