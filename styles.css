@@ -21,7 +21,7 @@
 
 h1 {
     text-align: center;
-    text-transform:uppercase;
+    text-transform:uppercase;                                                        /*     ***** */
     padding-top: 20px;
 }
 
@@ -47,11 +47,11 @@ h1 {
 }
 
 .weather-container{
-    margin-block:4rem;
+     margin-block:4rem;                               /* it refers to setting margin for top and bottom */
 }
 
 .btn{
-    all: unset;
+     all: unset;                             /*   to remove all default properties  */
     /* appearance: none;
     border:none;
     color: white; */
@@ -71,7 +71,7 @@ h1 {
 }
 
 .grant-location-container{
-     display:none; 
+    display:none;                                     /*      ***** */
 }
 
 .grant-location-container.active{
@@ -82,12 +82,12 @@ h1 {
     margin-bottom: 2rem;
 }
 
-.grant-location-container p:first-of-type{
+.grant-location-container p:first-of-type{                /*      ***** */
     font-size: 1.75rem;
     font-weight: 600; 
 }
 
-.grant-location-container p:last-of-type{
+.grant-location-container p:last-of-type{                            /*      ***** */
     font-size:0.85rem;
     font-weight: 500;
     margin-top: 0.75rem;
@@ -142,7 +142,7 @@ h1 {
     object-fit: contain;
 }
 
-.user-info-container p[data-temp] {
+.user-info-container p[data-temp] {                            /*      ***** */
     font-size:2.75rem;
     font-weight:700;
 }
